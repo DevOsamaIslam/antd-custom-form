@@ -1,13 +1,14 @@
 import { FormInstance, ButtonProps, FormProps } from "antd"
-import { Rule } from "antd/lib/form"
+import { FormItemProps, Rule } from "antd/lib/form"
 import { FormLayout } from "antd/lib/form/Form"
 
 type FieldTypes = "text" | "password" | "number" | "date" | "file"
 type SelectTypes = "single-select" | "multi-select"
 
 export interface ICustomFieldBase<T = string> {
-  label: string
+  label?: string
   name: name<T> | name<T>[]
+  placeholder?: string
   rules?: Rule[]
   otherProps?: any
   span?: number
@@ -19,7 +20,7 @@ interface ISelectField<T = string> extends ICustomFieldBase<T> {
 }
 
 interface IOtherField<T = string> extends ICustomFieldBase<T> {
-  type: Exclude<FieldTypes, SelectTypes>
+  type: FieldTypes
   list?: never
 }
 

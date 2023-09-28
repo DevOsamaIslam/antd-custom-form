@@ -82,19 +82,31 @@ const renderField = (field: ICustomField<string>) => {
     case "text":
       return (
         <Form.Item label={field.label} name={field.name} rules={field.rules}>
-          <Input style={{ width: "100%" }} {...field.otherProps} />
+          <Input
+            style={{ width: "100%" }}
+            placeholder={field.placeholder}
+            {...field.otherProps}
+          />
         </Form.Item>
       )
     case "password":
       return (
         <Form.Item label={field.label} name={field.name} rules={field.rules}>
-          <Input.Password style={{ width: "100%" }} {...field.otherProps} />
+          <Input.Password
+            style={{ width: "100%" }}
+            placeholder={field.placeholder}
+            {...field.otherProps}
+          />
         </Form.Item>
       )
     case "number":
       return (
         <Form.Item label={field.label} name={field.name} rules={field.rules}>
-          <InputNumber style={{ width: "100%" }} {...field.otherProps} />
+          <InputNumber
+            style={{ width: "100%" }}
+            placeholder={field.placeholder}
+            {...field.otherProps}
+          />
         </Form.Item>
       )
     case "single-select":
@@ -102,10 +114,11 @@ const renderField = (field: ICustomField<string>) => {
       return (
         <Form.Item label={field.label} name={field.name} rules={field.rules}>
           <Select
+            placeholder={field.placeholder}
             style={{ width: "100%" }}
-            {...field.otherProps}
             mode={field.type === "multi-select" ? "multiple" : undefined}
-            showSearch={(field.list?.length || 0) > 10}>
+            showSearch={(field.list?.length || 0) > 10}
+            {...field.otherProps}>
             {field.list?.map((item) => (
               <Select.Option key={item.value} value={item.value}>
                 {item.label}
@@ -117,13 +130,20 @@ const renderField = (field: ICustomField<string>) => {
     case "date":
       return (
         <Form.Item label={field.label} name={field.name} rules={field.rules}>
-          <DatePicker style={{ width: "100%" }} {...field.otherProps} />
+          <DatePicker
+            style={{ width: "100%" }}
+            placeholder={field.placeholder}
+            {...field.otherProps}
+          />
         </Form.Item>
       )
     case "file":
       return (
         <Form.Item label={field.label} name={field.name} rules={field.rules}>
-          <Upload style={{ width: "100%" }} {...field.otherProps}>
+          <Upload
+            style={{ width: "100%" }}
+            placeholder={field.placeholder}
+            {...field.otherProps}>
             <Button>Upload File</Button>
           </Upload>
         </Form.Item>
