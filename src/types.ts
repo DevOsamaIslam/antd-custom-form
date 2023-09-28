@@ -12,35 +12,25 @@ export interface ICustomFieldBase<T = string> {
   span?: number
 }
 
-export interface ISelectField<T = string> extends ICustomFieldBase<T> {
+interface ISelectField<T = string> extends ICustomFieldBase<T> {
   type: SelectTypes
-  list: $option[]
+  list: TOption[]
 }
 
-export interface IOtherField<T = string> extends ICustomFieldBase<T> {
+interface IOtherField<T = string> extends ICustomFieldBase<T> {
   type: Exclude<"text" | "number" | "date" | "file", SelectTypes>
   list?: never
 }
 
 export type ICustomField<T = string> = ISelectField<T> | IOtherField<T>
 
-export type $option<T = any> = {
+export type TOption<T = any> = {
   icon?: React.ReactNode
   label: string
   value: T
 }
 
 type name<T> = T extends string ? string : keyof T
-
-// export interface ICustomField<T = string> {
-//   label: string
-//   name: name<T> | name<T>[]
-//   type: "text" | "number" | "single-select" | "multi-select" | "date" | "file"
-//   list?: $option[]
-//   rules?: Rule[]
-//   otherProps?: any
-//   span?: number
-// }
 
 export type IFieldGroup<T = any> = ICustomField<T>[][]
 
