@@ -118,6 +118,7 @@ const renderField = (field: ICustomField<string>) => {
             style={{ width: "100%" }}
             mode={field.type === "multi-select" ? "multiple" : undefined}
             showSearch={(field.list?.length || 0) > 10}
+            allowClear
             {...field.otherProps}>
             {field.list?.map((item) => (
               <Select.Option key={item.value} value={item.value}>
