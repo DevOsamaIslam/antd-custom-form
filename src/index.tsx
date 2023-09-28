@@ -14,6 +14,8 @@ import { Store } from "antd/lib/form/interface"
 import React from "react"
 import { ICustomField, ICustomForm } from "./types"
 
+export * from "./types"
+
 export const CustomForm = <T,>({
   fieldsGroups,
   onSubmit,
