@@ -1,5 +1,5 @@
-import { FormInstance, ButtonProps, FormProps } from "antd"
-import { FormItemProps, Rule } from "antd/lib/form"
+import { ButtonProps, FormInstance, FormProps } from "antd"
+import { Rule } from "antd/lib/form"
 import { FormLayout } from "antd/lib/form/Form"
 
 type FieldTypes = "text" | "password" | "number" | "date" | "file"
@@ -40,7 +40,7 @@ export interface ICustomForm<T> {
   fieldsGroups: IFieldGroup<T>
   onSubmit: (values: T) => void
   formControl?: FormInstance
-  initialValue?: T
+  initialValues?: T
   layout?: FormLayout
   actionButtonsPlacement?: "start" | "center" | "end"
   submitButton?: ButtonProps | boolean

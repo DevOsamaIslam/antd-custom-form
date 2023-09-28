@@ -1,6 +1,6 @@
 import { Typography } from "antd"
 import "antd/dist/antd.css"
-import { CustomForm, IFieldGroup } from "../../dist"
+import { CustomForm, IFieldGroup } from "../../src"
 
 interface Fields {
   firstName: string

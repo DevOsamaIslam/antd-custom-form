@@ -20,7 +20,7 @@ export const CustomForm = <T,>({
   fieldsGroups,
   onSubmit,
   formControl,
-  initialValue,
+  initialValues,
   layout = "horizontal",
   actionButtonsPlacement = "end",
   submitButton,
@@ -47,7 +47,7 @@ export const CustomForm = <T,>({
       form={form}
       onFinish={onSubmit}
       layout={layout}
-      initialValues={initialValue as Store}
+      initialValues={initialValues as Store}
       {...formProps}>
       {fieldsGroups.map((fields, rowIndex) => (
         <Row gutter={[16, 16]} key={rowIndex}>
