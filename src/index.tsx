@@ -85,6 +85,12 @@ const renderField = (field: ICustomField<string>) => {
           <Input style={{ width: "100%" }} {...field.otherProps} />
         </Form.Item>
       )
+    case "password":
+      return (
+        <Form.Item label={field.label} name={field.name} rules={field.rules}>
+          <Input.Password style={{ width: "100%" }} {...field.otherProps} />
+        </Form.Item>
+      )
     case "number":
       return (
         <Form.Item label={field.label} name={field.name} rules={field.rules}>
