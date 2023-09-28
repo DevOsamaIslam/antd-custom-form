@@ -1,6 +1,6 @@
 {
   "name": "antd-custom-form",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A custom form component built with Ant Design",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
