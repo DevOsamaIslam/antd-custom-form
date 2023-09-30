@@ -1,32 +1,60 @@
-# antd-custom-form
+# antd-custom-form 🚀
 
-A custom form component built with Ant Design, providing a flexible and easy-to-use interface for creating forms.
+Say goodbye to the boilerplate blues! Introducing `antd-custom-form`, your one-stop shop for all things form-related in Ant Design. Create forms that are as easy to set up as they are on the eyes.
 
-## Features
+## Features 🌟
 
-- Supports various field types including text, number, select, date, and file.
-- Integrates seamlessly with Ant Design's form components.
-- Provides a flexible layout with Ant Design's grid system.
-- Customizable action buttons with placement options.
-- Supports initial values for the form.
+- 📝 **Versatile Fields**: Text, number, select, date, file—you name it, we've got it.
+- 🐜 **Ant Design BFF**: Seamlessly integrates with your favorite UI library.
+- 📐 **Flexible Layout**: Uses Ant Design's grid system to make your forms look like a million bucks.
+- 🎬 **Action Button Customization**: Place 'em where you want 'em.
+- 🎁 **Initial Values**: Because sometimes, you just want to give your users a head start.
 
-## Installation
+## Installation 🛠️
 
 ```bash
+# With npm
 npm i antd-custom-form
-```
 
-or
-
-```bash
+# Or if you're a yarn person
 yarn add antd-custom-form
 ```
 
-or
+## Props 📚
 
-## Usage
+### For the Form 📋
 
-Here's a basic example of how to use the `CustomForm` component:
+| Prop                     | Required? | Default      | Description                                                      |
+| ------------------------ | --------- | ------------ | ---------------------------------------------------------------- |
+| `fieldsGroups`           | Yes 🚨    | -            | An array of field groups. It's like Inception but for forms.     |
+| `onSubmit`               | Yes 🚨    | -            | What happens in the form, stays in the form—until you submit it. |
+| `formControl`            | No 🤷     | -            | Your very own Ant Design form instance.                          |
+| `initialValue`           | No 🤷     | -            | Pre-fill like a pro.                                             |
+| `layout`                 | No 🤷     | "horizontal" | How do you like your forms? Stacked or side-by-side?             |
+| `actionButtonsPlacement` | No 🤷     | "end"        | Where the action happens.                                        |
+| `submitButton`           | No 🤷     | `true`       | The button that seals the deal.                                  |
+| `resetButton`            | No 🤷     | `true`       | The button that says, "Let's start over, shall we?"              |
+| `formProps`              | No 🤷     | -            | Extra props? Yes, please!                                        |
+
+### For the Fields 🌱
+
+| Prop         | Required?      | Default | Description                                      |
+| ------------ | -------------- | ------- | ------------------------------------------------ |
+| `label`      | Yes 🚨         | -       | What's in a name? Well, a lot actually.          |
+| `name`       | Yes 🚨         | -       | The key to your field's heart.                   |
+| `type`       | Yes 🚨         | -       | The personality of your field.                   |
+| `list`       | Conditional 🤔 | -       | The options that make your select fields happy.  |
+| `rules`      | No 🤷          | -       | Keep your fields in check.                       |
+| `otherProps` | No 🤷          | -       | The secret sauce for your Ant Design components. |
+| `span`       | No 🤷          | `24`    | How much room does your field need?              |
+
+> 🤔 The `list` prop is only required for `single-select` and `multi-select`. For other field types, it's a "thanks, but no thanks" situation.
+
+---
+
+## Usage 🎨
+
+Ready to create your first masterpiece? Here's a quick example to get you started:
 
 ```ts
 import React from "react"
@@ -72,6 +100,37 @@ function App() {
         type: "date",
       },
     ],
+    [
+      {
+        label: "Hobbies",
+        name: "hobbies",
+        type: "checkbox",
+        list: [
+          { label: "Hobby 1", value: "h1" },
+          { label: "Hobby 2", value: "h2" },
+        ],
+      },
+      {
+        label: "Gender",
+        name: "gender",
+        type: "radio",
+        list: [
+          { label: "Male", value: "male" },
+          { label: "Female", value: "female" },
+        ],
+      },
+    ],
+    [
+      {
+        label: "Is Active?",
+        name: "isEnabled",
+        type: "toggle",
+        list: [
+          { label: "Yes", value: true },
+          { label: "No", value: false },
+        ],
+      },
+    ],
   ]
 
   const handleSubmit = (data: Fields) => {
@@ -79,52 +138,28 @@ function App() {
   }
 
   return (
-    <>
+    <div style={{ width: "70vw", marginInline: "auto" }}>
       <Typography.Title>Basic Form</Typography.Title>
       <CustomForm
         fieldsGroups={fieldsGroups}
         onSubmit={handleSubmit}
         resetButton={false}
         layout="vertical"
+        initialValues={{
+          firstName: "Osama",
+          age: 27,
+          color: "teal",
+          dob: moment(),
+          hobbies: [],
+        }}
       />
-    </>
+    </div>
   )
 }
 ```
 
-## Props
-
-### Form
-
-| Prop                     | Required? | Default      | Description                                                      |
-| ------------------------ | --------- | ------------ | ---------------------------------------------------------------- |
-| `fieldsGroups`           | Yes       | -            | An array of field groups. Each group is an array of fields.      |
-| `onSubmit`               | Yes       | -            | Callback function when the form is submitted.                    |
-| `formControl`            | No        | -            | Ant Design's form instance.                                      |
-| `initialValue`           | No        | -            | Initial values for the form fields.                              |
-| `layout`                 | No        | "horizontal" | Form layout. Can be "horizontal", "vertical", or "inline".       |
-| `actionButtonsPlacement` | No        | "end"        | Placement of action buttons. Can be "start", "center", or "end". |
-| `submitButton`           | No        | `true`       | Props for the submit button or a boolean to show/hide.           |
-| `resetButton`            | No        | `true`       | Props for the reset button or a boolean to show/hide.            |
-| `formProps`              | No        | -            | Additional props for Ant Design's Form component.                |
-
-### Field
-
-| Prop         | Required?     | Default | Description                                                                                      |
-| ------------ | ------------- | ------- | ------------------------------------------------------------------------------------------------ |
-| `label`      | Yes           | -       | The label text for the field.                                                                    |
-| `name`       | Yes           | -       | The name of the field. Can be a string or an array of strings (for nested fields).               |
-| `type`       | Yes           | -       | The type of the field. Can be "text", "number", "single-select", "multi-select", "date", "file". |
-| `list`       | Conditional\* | -       | An array of options for select fields. Each option has a label and a value.                      |
-| `rules`      | No            | -       | An array of validation rules for the field.                                                      |
-| `otherProps` | No            | -       | Additional props that can be passed to the underlying Ant Design component.                      |
-| `span`       | No            | `24`    | The span of the field in the grid. Represents the width of the field in the form layout.         |
-
-\* The `list` prop is required only when the `type` is either `single-select` or `multi-select`.
-For other field types, the `list` prop should not be provided.
-
 ---
 
-## License
+## License 📜
 
 MIT
