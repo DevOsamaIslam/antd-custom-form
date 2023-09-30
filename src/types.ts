@@ -3,15 +3,17 @@ import { Rule } from "antd/lib/form"
 import { FormLayout } from "antd/lib/form/Form"
 
 type FieldTypes = "text" | "password" | "number" | "date" | "file"
-type SelectTypes = "single-select" | "multi-select"
+
+type SelectTypes = "single-select" | "multi-select" | "checkbox" | "radio"
 
 export interface ICustomFieldBase<T = string> {
   label?: string
   name: name<T> | name<T>[]
   placeholder?: string
   rules?: Rule[]
-  otherProps?: any
   span?: number
+  disabled?: boolean
+  otherProps?: any
 }
 
 interface ISelectField<T = string> extends ICustomFieldBase<T> {
@@ -21,10 +23,17 @@ interface ISelectField<T = string> extends ICustomFieldBase<T> {
 
 interface IOtherField<T = string> extends ICustomFieldBase<T> {
   type: FieldTypes
-  list?: never
 }
 
-export type ICustomField<T = string> = ISelectField<T> | IOtherField<T>
+interface IToggleFieldType<T = string> extends ICustomFieldBase<T> {
+  type: "toggle"
+  list: [TOption, TOption]
+}
+
+export type ICustomField<T = string> =
+  | ISelectField<T>
+  | IOtherField<T>
+  | IToggleFieldType<T>
 
 export type TOption<T = any> = {
   icon?: React.ReactNode

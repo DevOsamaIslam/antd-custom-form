@@ -1,13 +1,16 @@
 import {
   Button,
+  Checkbox,
   Col,
   DatePicker,
   Form,
   Input,
   InputNumber,
+  Radio,
   Row,
   Select,
   Space,
+  Switch,
   Upload,
 } from "antd"
 import { Store } from "antd/lib/form/interface"
@@ -78,14 +81,22 @@ export const CustomForm = <T,>({
 }
 
 const renderField = (field: ICustomField<string>) => {
+  const inputProps = {
+    "data-testid": Array.isArray(field.name)
+      ? field.name.join("-")
+      : field.name,
+    ...field.otherProps,
+  }
+
   switch (field.type) {
     case "text":
       return (
         <Form.Item label={field.label} name={field.name} rules={field.rules}>
           <Input
+            disabled={field.disabled}
             style={{ width: "100%" }}
             placeholder={field.placeholder}
-            {...field.otherProps}
+            {...inputProps}
           />
         </Form.Item>
       )
@@ -93,9 +104,10 @@ const renderField = (field: ICustomField<string>) => {
       return (
         <Form.Item label={field.label} name={field.name} rules={field.rules}>
           <Input.Password
+            disabled={field.disabled}
             style={{ width: "100%" }}
             placeholder={field.placeholder}
-            {...field.otherProps}
+            {...inputProps}
           />
         </Form.Item>
       )
@@ -104,8 +116,9 @@ const renderField = (field: ICustomField<string>) => {
         <Form.Item label={field.label} name={field.name} rules={field.rules}>
           <InputNumber
             style={{ width: "100%" }}
+            disabled={field.disabled}
             placeholder={field.placeholder}
-            {...field.otherProps}
+            {...inputProps}
           />
         </Form.Item>
       )
@@ -114,12 +127,13 @@ const renderField = (field: ICustomField<string>) => {
       return (
         <Form.Item label={field.label} name={field.name} rules={field.rules}>
           <Select
+            disabled={field.disabled}
             placeholder={field.placeholder}
             style={{ width: "100%" }}
             mode={field.type === "multi-select" ? "multiple" : undefined}
             showSearch={(field.list?.length || 0) > 10}
             allowClear
-            {...field.otherProps}>
+            {...inputProps}>
             {field.list?.map((item) => (
               <Select.Option key={item.value} value={item.value}>
                 {item.label}
@@ -133,8 +147,9 @@ const renderField = (field: ICustomField<string>) => {
         <Form.Item label={field.label} name={field.name} rules={field.rules}>
           <DatePicker
             style={{ width: "100%" }}
+            disabled={field.disabled}
             placeholder={field.placeholder}
-            {...field.otherProps}
+            {...inputProps}
           />
         </Form.Item>
       )
@@ -144,9 +159,44 @@ const renderField = (field: ICustomField<string>) => {
           <Upload
             style={{ width: "100%" }}
             placeholder={field.placeholder}
-            {...field.otherProps}>
-            <Button>Upload File</Button>
+            {...inputProps}>
+            <Button disabled={field.disabled}>{field.placeholder}</Button>
           </Upload>
+        </Form.Item>
+      )
+    case "checkbox":
+      return (
+        <Form.Item name={field.name} label={field.label} rules={field.rules}>
+          <Checkbox.Group
+            options={field.list}
+            disabled={field.disabled}
+            {...inputProps}
+          />
+        </Form.Item>
+      )
+    case "radio":
+      return (
+        <Form.Item name={field.name} label={field.label} rules={field.rules}>
+          <Radio.Group
+            options={field.list}
+            disabled={field.disabled}
+            {...inputProps}
+          />
+        </Form.Item>
+      )
+    case "toggle":
+      return (
+        <Form.Item
+          name={field.name}
+          label={field.label}
+          rules={field.rules}
+          valuePropName="checked">
+          <Switch
+            checkedChildren={field.list[0].label}
+            unCheckedChildren={field.list[1].label}
+            disabled={field.disabled}
+            {...inputProps}
+          />
         </Form.Item>
       )
     default:
