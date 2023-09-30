@@ -1,12 +1,16 @@
 import { Typography } from "antd"
 import "antd/dist/antd.css"
 import { CustomForm, IFieldGroup } from "../../src"
+import moment, { Moment } from "moment"
 
 interface Fields {
   firstName: string
   age: number
   color: string
-  dob: Date
+  dob: Moment
+  hobbies: string[]
+  gender?: "male" | "female"
+  isEnabled?: boolean
 }
 
 function App() {
@@ -41,6 +45,37 @@ function App() {
         type: "date",
       },
     ],
+    [
+      {
+        label: "Hobbies",
+        name: "hobbies",
+        type: "checkbox",
+        list: [
+          { label: "Hobby 1", value: "h1" },
+          { label: "Hobby 2", value: "h2" },
+        ],
+      },
+      {
+        label: "Gender",
+        name: "gender",
+        type: "radio",
+        list: [
+          { label: "Male", value: "male" },
+          { label: "Female", value: "female" },
+        ],
+      },
+    ],
+    [
+      {
+        label: "Is Active?",
+        name: "isEnabled",
+        type: "toggle",
+        list: [
+          { label: "Yes", value: true },
+          { label: "No", value: false },
+        ],
+      },
+    ],
   ]
 
   const handleSubmit = (data: Fields) => {
@@ -55,11 +90,12 @@ function App() {
         onSubmit={handleSubmit}
         resetButton={false}
         layout="vertical"
-        initialValue={{
+        initialValues={{
           firstName: "Osama",
           age: 27,
           color: "teal",
-          dob: new Date(),
+          dob: moment(),
+          hobbies: [],
         }}
       />
     </div>
