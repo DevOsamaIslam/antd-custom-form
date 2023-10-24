@@ -26,7 +26,7 @@ yarn add antd-custom-form
 
 | Prop                     | Required? | Default      | Description                                                      |
 | ------------------------ | --------- | ------------ | ---------------------------------------------------------------- |
-| `fieldsGroups`           | Yes 🚨    | -            | An array of field groups. It's like Inception but for forms.     |
+| `fieldGroups`           | Yes 🚨    | -            | An array of field groups. It's like Inception but for forms.     |
 | `onSubmit`               | Yes 🚨    | -            | What happens in the form, stays in the form—until you submit it. |
 | `formControl`            | No 🤷     | -            | Your very own Ant Design form instance.                          |
 | `initialValue`           | No 🤷     | -            | Pre-fill like a pro.                                             |
@@ -45,10 +45,11 @@ yarn add antd-custom-form
 | `type`       | Yes 🚨         | -       | The personality of your field.                   |
 | `list`       | Conditional 🤔 | -       | The options that make your select fields happy.  |
 | `rules`      | No 🤷          | -       | Keep your fields in check.                       |
-| `otherProps` | No 🤷          | -       | The secret sauce for your Ant Design components. |
-| `span`       | No 🤷          | `24`    | How much room does your field need?              |
+| `hide`       | No 🤷          | false   | Whether to render.                               |
+| `otherProps` | No 🤷          | -       | The standard sauce for your Ant Design components. |
+| `span`       | No 🤷          | `24`    | How much personal space to give your field?      |
 
-> 🤔 The `list` prop is only required for `single-select` and `multi-select`. For other field types, it's a "thanks, but no thanks" situation.
+> 🤔 The `list` prop is only required for `single-select`, `multi-select` and `toggle`. For other field types, it's a "thanks, but no thanks" situation.
 
 ---
 
@@ -65,7 +66,11 @@ interface Fields {
   firstName: string
   age: number
   color: string
-  dob: Date
+  dob: Moment
+  hobbies: string[]
+  gender?: "male" | "female"
+  isEnabled?: boolean
+  bio: string
 }
 
 function App() {
@@ -76,6 +81,7 @@ function App() {
         name: "firstName",
         type: "text",
         rules: [{ required: true, message: "Please enter a name" }],
+        hide: true,
       },
       {
         label: "Age",
@@ -122,6 +128,11 @@ function App() {
     ],
     [
       {
+        label: "Bio",
+        name: "bio",
+        type: "textarea",
+      },
+      {
         label: "Is Active?",
         name: "isEnabled",
         type: "toggle",
@@ -141,7 +152,7 @@ function App() {
     <div style={{ width: "70vw", marginInline: "auto" }}>
       <Typography.Title>Basic Form</Typography.Title>
       <CustomForm
-        fieldsGroups={fieldsGroups}
+        fieldGroups={fieldsGroups}
         onSubmit={handleSubmit}
         resetButton={false}
         layout="vertical"
@@ -151,6 +162,7 @@ function App() {
           color: "teal",
           dob: moment(),
           hobbies: [],
+          bio: "",
         }}
       />
     </div>

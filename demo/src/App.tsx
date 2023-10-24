@@ -11,6 +11,7 @@ interface Fields {
   hobbies: string[]
   gender?: "male" | "female"
   isEnabled?: boolean
+  bio: string
 }
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
         name: "firstName",
         type: "text",
         rules: [{ required: true, message: "Please enter a name" }],
+        // hide: true,
       },
       {
         label: "Age",
@@ -67,6 +69,11 @@ function App() {
     ],
     [
       {
+        label: "Bio",
+        name: "bio",
+        type: "textarea",
+      },
+      {
         label: "Is Active?",
         name: "isEnabled",
         type: "toggle",
@@ -86,7 +93,7 @@ function App() {
     <div style={{ width: "70vw", marginInline: "auto" }}>
       <Typography.Title>Basic Form</Typography.Title>
       <CustomForm
-        fieldsGroups={fieldsGroups}
+        fieldGroups={fieldsGroups}
         onSubmit={handleSubmit}
         resetButton={false}
         layout="vertical"
@@ -96,6 +103,7 @@ function App() {
           color: "teal",
           dob: moment(),
           hobbies: [],
+          bio: "",
         }}
       />
     </div>

@@ -2,7 +2,7 @@ import { ButtonProps, FormInstance, FormProps } from "antd"
 import { Rule } from "antd/lib/form"
 import { FormLayout } from "antd/lib/form/Form"
 
-type FieldTypes = "text" | "password" | "number" | "date" | "file"
+type FieldTypes = "text" | "password" | "number" | "date" | "file" | "textarea"
 
 type SelectTypes = "single-select" | "multi-select" | "checkbox" | "radio"
 
@@ -13,6 +13,7 @@ export interface ICustomFieldBase<T = string> {
   rules?: Rule[]
   span?: number
   disabled?: boolean
+  hide?: boolean
   otherProps?: any
 }
 
@@ -46,7 +47,7 @@ type name<T> = T extends string ? string : keyof T
 export type IFieldGroup<T = any> = ICustomField<T>[][]
 
 export interface ICustomForm<T> {
-  fieldsGroups: IFieldGroup<T>
+  fieldGroups: IFieldGroup<T>
   onSubmit: (values: T) => void
   formControl?: FormInstance
   initialValues?: T

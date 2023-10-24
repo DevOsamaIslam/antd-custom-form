@@ -16,11 +16,12 @@ import {
 import { Store } from "antd/lib/form/interface"
 import React from "react"
 import { ICustomField, ICustomForm } from "./types"
+import TextArea from "antd/lib/input/TextArea"
 
 export * from "./types"
 
 export const CustomForm = <T,>({
-  fieldsGroups,
+  fieldGroups,
   onSubmit,
   formControl,
   initialValues,
@@ -52,13 +53,16 @@ export const CustomForm = <T,>({
       layout={layout}
       initialValues={initialValues as Store}
       {...formProps}>
-      {fieldsGroups.map((fields, rowIndex) => (
+      {fieldGroups.map((fields, rowIndex) => (
         <Row gutter={[16, 16]} key={rowIndex}>
-          {fields.map((field, fieldIndex) => (
-            <Col key={fieldIndex} span={field.span || 24 / fields.length}>
-              {renderField(field as ICustomField<string>)}
-            </Col>
-          ))}
+          {fields.map(
+            (field, fieldIndex) =>
+              !field.hide && (
+                <Col key={fieldIndex} span={field.span || 24 / fields.length}>
+                  {renderField(field as ICustomField<string>)}
+                </Col>
+              )
+          )}
         </Row>
       ))}
       <Space style={{ width: "100%", justifyContent: buttonsPlacement }}>
@@ -93,6 +97,17 @@ const renderField = (field: ICustomField<string>) => {
       return (
         <Form.Item label={field.label} name={field.name} rules={field.rules}>
           <Input
+            disabled={field.disabled}
+            style={{ width: "100%" }}
+            placeholder={field.placeholder}
+            {...inputProps}
+          />
+        </Form.Item>
+      )
+    case "textarea":
+      return (
+        <Form.Item label={field.label} name={field.name} rules={field.rules}>
+          <TextArea
             disabled={field.disabled}
             style={{ width: "100%" }}
             placeholder={field.placeholder}
