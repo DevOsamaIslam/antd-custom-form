@@ -38,16 +38,17 @@ yarn add antd-custom-form
 
 ### For the Fields 🌱
 
-| Prop         | Required?      | Default | Description                                      |
-| ------------ | -------------- | ------- | ------------------------------------------------ |
-| `label`      | Yes 🚨         | -       | What's in a name? Well, a lot actually.          |
-| `name`       | Yes 🚨         | -       | The key to your field's heart.                   |
-| `type`       | Yes 🚨         | -       | The personality of your field.                   |
-| `list`       | Conditional 🤔 | -       | The options that make your select fields happy.  |
-| `rules`      | No 🤷          | -       | Keep your fields in check.                       |
-| `hide`       | No 🤷          | false   | Whether to render.                               |
-| `otherProps` | No 🤷          | -       | The standard sauce for your Ant Design components. |
-| `span`       | No 🤷          | `24`    | How much personal space to give your field?      |
+| Prop            | Required?      | Default | Description                                      |
+| ------------    | -------------- | ------- | ------------------------------------------------ |
+| `label`         | Yes 🚨         | -       | What's in a name? Well, a lot actually.          |
+| `name`          | Yes 🚨         | -       | The key to your field's heart.                   |
+| `type`          | Yes 🚨         | -       | The personality of your field.                   |
+| `list`          | Conditional 🤔 | -       | The options that make your select fields happy.  |
+| `rules`         | No 🤷          | -       | Keep your fields in check.                       |
+| `hide`          | No 🤷          | false   | Whether to render.                               |
+| `formItemProps` | No 🤷          | -       | The props for each form item.                    |
+| `inputProps`    | No 🤷          | -       | The custom spices for each input.                |
+| `span`          | No 🤷          | `24`    | How much personal space to give your field?      |
 
 > 🤔 The `list` prop is only required for `single-select`, `multi-select` and `toggle`. For other field types, it's a "thanks, but no thanks" situation.
 
@@ -82,6 +83,10 @@ function App() {
         type: "text",
         rules: [{ required: true, message: "Please enter a name" }],
         hide: true,
+        formItemProps: {
+          validateStatus: "success",
+          hasFeedback: true,
+        },
       },
       {
         label: "Age",

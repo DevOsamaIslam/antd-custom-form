@@ -1,5 +1,5 @@
 import { ButtonProps, FormInstance, FormProps } from "antd"
-import { Rule } from "antd/lib/form"
+import { FormItemProps, Rule } from "antd/lib/form"
 import { FormLayout } from "antd/lib/form/Form"
 
 type FieldTypes = "text" | "password" | "number" | "date" | "file" | "textarea"
@@ -14,7 +14,8 @@ export interface ICustomFieldBase<T = string> {
   span?: number
   disabled?: boolean
   hide?: boolean
-  otherProps?: any
+  inputProps?: any
+  formItemProps?: FormItemProps
 }
 
 interface ISelectField<T = string> extends ICustomFieldBase<T> {

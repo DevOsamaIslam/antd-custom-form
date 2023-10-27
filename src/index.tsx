@@ -89,13 +89,17 @@ const renderField = (field: ICustomField<string>) => {
     "data-testid": Array.isArray(field.name)
       ? field.name.join("-")
       : field.name,
-    ...field.otherProps,
+    ...field.inputProps,
   }
 
   switch (field.type) {
     case "text":
       return (
-        <Form.Item label={field.label} name={field.name} rules={field.rules}>
+        <Form.Item
+          label={field.label}
+          name={field.name}
+          rules={field.rules}
+          {...field.formItemProps}>
           <Input
             disabled={field.disabled}
             style={{ width: "100%" }}
@@ -106,7 +110,11 @@ const renderField = (field: ICustomField<string>) => {
       )
     case "textarea":
       return (
-        <Form.Item label={field.label} name={field.name} rules={field.rules}>
+        <Form.Item
+          label={field.label}
+          name={field.name}
+          rules={field.rules}
+          {...field.formItemProps}>
           <TextArea
             disabled={field.disabled}
             style={{ width: "100%" }}
@@ -117,7 +125,11 @@ const renderField = (field: ICustomField<string>) => {
       )
     case "password":
       return (
-        <Form.Item label={field.label} name={field.name} rules={field.rules}>
+        <Form.Item
+          label={field.label}
+          name={field.name}
+          rules={field.rules}
+          {...field.formItemProps}>
           <Input.Password
             disabled={field.disabled}
             style={{ width: "100%" }}
@@ -128,7 +140,11 @@ const renderField = (field: ICustomField<string>) => {
       )
     case "number":
       return (
-        <Form.Item label={field.label} name={field.name} rules={field.rules}>
+        <Form.Item
+          label={field.label}
+          name={field.name}
+          rules={field.rules}
+          {...field.formItemProps}>
           <InputNumber
             style={{ width: "100%" }}
             disabled={field.disabled}
@@ -140,7 +156,11 @@ const renderField = (field: ICustomField<string>) => {
     case "single-select":
     case "multi-select":
       return (
-        <Form.Item label={field.label} name={field.name} rules={field.rules}>
+        <Form.Item
+          label={field.label}
+          name={field.name}
+          rules={field.rules}
+          {...field.formItemProps}>
           <Select
             disabled={field.disabled}
             placeholder={field.placeholder}
@@ -159,7 +179,11 @@ const renderField = (field: ICustomField<string>) => {
       )
     case "date":
       return (
-        <Form.Item label={field.label} name={field.name} rules={field.rules}>
+        <Form.Item
+          label={field.label}
+          name={field.name}
+          rules={field.rules}
+          {...field.formItemProps}>
           <DatePicker
             style={{ width: "100%" }}
             disabled={field.disabled}
@@ -170,7 +194,11 @@ const renderField = (field: ICustomField<string>) => {
       )
     case "file":
       return (
-        <Form.Item label={field.label} name={field.name} rules={field.rules}>
+        <Form.Item
+          label={field.label}
+          name={field.name}
+          rules={field.rules}
+          {...field.formItemProps}>
           <Upload
             style={{ width: "100%" }}
             placeholder={field.placeholder}
@@ -181,7 +209,11 @@ const renderField = (field: ICustomField<string>) => {
       )
     case "checkbox":
       return (
-        <Form.Item name={field.name} label={field.label} rules={field.rules}>
+        <Form.Item
+          name={field.name}
+          label={field.label}
+          rules={field.rules}
+          {...field.formItemProps}>
           <Checkbox.Group
             options={field.list}
             disabled={field.disabled}
@@ -191,7 +223,11 @@ const renderField = (field: ICustomField<string>) => {
       )
     case "radio":
       return (
-        <Form.Item name={field.name} label={field.label} rules={field.rules}>
+        <Form.Item
+          name={field.name}
+          label={field.label}
+          rules={field.rules}
+          {...field.formItemProps}>
           <Radio.Group
             options={field.list}
             disabled={field.disabled}
@@ -205,7 +241,8 @@ const renderField = (field: ICustomField<string>) => {
           name={field.name}
           label={field.label}
           rules={field.rules}
-          valuePropName="checked">
+          valuePropName="checked"
+          {...field.formItemProps}>
           <Switch
             checkedChildren={field.list[0].label}
             unCheckedChildren={field.list[1].label}

@@ -22,6 +22,10 @@ function App() {
         name: "firstName",
         type: "text",
         rules: [{ required: true, message: "Please enter a name" }],
+        formItemProps: {
+          validateStatus: "success",
+          hasFeedback: true,
+        },
         // hide: true,
       },
       {
