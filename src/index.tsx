@@ -27,7 +27,7 @@ export const CustomForm = <T,>({
   initialValues,
   layout = "horizontal",
   actionButtonsPlacement = "end",
-  submitButton,
+  submitButton = true,
   resetButton,
   formProps,
 }: ICustomForm<T>): JSX.Element => {
@@ -40,11 +40,9 @@ export const CustomForm = <T,>({
 
   const form = formControl || Form.useForm()[0]
 
-  const submitButtonProps =
-    typeof submitButton === "object" ? submitButton : undefined
+  const isSubmitButton = React.isValidElement(submitButton)
 
-  const resetButtonProps =
-    typeof submitButton === "object" ? submitButton : undefined
+  const isResetButton = React.isValidElement(resetButton)
 
   return (
     <Form
@@ -66,16 +64,16 @@ export const CustomForm = <T,>({
         </Row>
       ))}
       <Space style={{ width: "100%", justifyContent: buttonsPlacement }}>
-        {resetButton !== false && (
-          <Button
-            type="text"
-            onClick={() => form.resetFields()}
-            {...resetButtonProps}>
+        {isResetButton && resetButton}
+        {!isResetButton && resetButton === true && (
+          <Button type="text" onClick={() => form.resetFields()}>
             Reset
           </Button>
         )}
-        {submitButton !== false && (
-          <Button type="primary" htmlType="submit" {...submitButtonProps}>
+
+        {isSubmitButton && submitButton}
+        {!isSubmitButton && submitButton === true && (
+          <Button type="primary" htmlType="submit">
             Submit
           </Button>
         )}

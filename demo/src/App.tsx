@@ -1,7 +1,7 @@
 import { Typography } from "antd"
 import "antd/dist/antd.css"
-import { CustomForm, IFieldGroup } from "../../src"
 import moment, { Moment } from "moment"
+import { CustomForm, IFieldGroup } from "../../src"
 
 interface Fields {
   firstName: string
@@ -15,6 +15,9 @@ interface Fields {
 }
 
 function App() {
+  // optional
+  // const [formHook] = Form.useForm()
+
   const fieldsGroups: IFieldGroup<Fields> = [
     [
       {

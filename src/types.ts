@@ -1,6 +1,7 @@
-import { ButtonProps, FormInstance, FormProps } from "antd"
+import { FormInstance, FormProps } from "antd"
 import { FormItemProps, Rule } from "antd/lib/form"
 import { FormLayout } from "antd/lib/form/Form"
+import { ReactNode } from "react"
 
 type FieldTypes = "text" | "password" | "number" | "date" | "file" | "textarea"
 
@@ -8,7 +9,7 @@ type SelectTypes = "single-select" | "multi-select" | "checkbox" | "radio"
 
 export interface ICustomFieldBase<T = string> {
   label?: string
-  name: name<T> | name<T>[]
+  name: name<T> | string[]
   placeholder?: string
   rules?: Rule[]
   span?: number
@@ -19,12 +20,12 @@ export interface ICustomFieldBase<T = string> {
 }
 
 interface ISelectField<T = string> extends ICustomFieldBase<T> {
-  type: SelectTypes
+  type?: SelectTypes
   list: TOption[]
 }
 
 interface IOtherField<T = string> extends ICustomFieldBase<T> {
-  type: FieldTypes
+  type?: FieldTypes
 }
 
 interface IToggleFieldType<T = string> extends ICustomFieldBase<T> {
@@ -47,14 +48,25 @@ type name<T> = T extends string ? string : keyof T
 
 export type IFieldGroup<T = any> = ICustomField<T>[][]
 
-export interface ICustomForm<T> {
+export type ICustomForm<T> = {
   fieldGroups: IFieldGroup<T>
   onSubmit: (values: T) => void
-  formControl?: FormInstance
-  initialValues?: T
+  initialValues?: Partial<T>
   layout?: FormLayout
   actionButtonsPlacement?: "start" | "center" | "end"
-  submitButton?: ButtonProps | boolean
-  resetButton?: ButtonProps | boolean
+  resetButton?: ReactNode | boolean
   formProps?: FormProps
-}
+} & (
+  | {
+      submitButton: ReactNode | true
+      formControl?: FormInstance
+    }
+  | {
+      submitButton?: false
+      formControl: FormInstance
+    }
+  | {
+      submitButton?: ReactNode | true
+      formControl?: FormInstance
+    }
+)
