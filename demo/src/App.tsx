@@ -23,7 +23,6 @@ function App() {
       {
         label: "Name",
         name: "firstName",
-        type: "text",
         rules: [{ required: true, message: "Please enter a name" }],
         formItemProps: {
           validateStatus: "success",

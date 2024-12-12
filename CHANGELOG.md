@@ -1,5 +1,11 @@
 # antd-custom-form
 
+## 0.7.1
+
+### Patch Changes
+
+- Fix the default type to text
+
 ## 0.7.0
 
 ### Minor Changes

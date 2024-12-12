@@ -91,21 +91,6 @@ const renderField = (field: ICustomField<string>) => {
   }
 
   switch (field.type) {
-    case "text":
-      return (
-        <Form.Item
-          label={field.label}
-          name={field.name}
-          rules={field.rules}
-          {...field.formItemProps}>
-          <Input
-            disabled={field.disabled}
-            style={{ width: "100%" }}
-            placeholder={field.placeholder}
-            {...inputProps}
-          />
-        </Form.Item>
-      )
     case "textarea":
       return (
         <Form.Item
@@ -250,6 +235,19 @@ const renderField = (field: ICustomField<string>) => {
         </Form.Item>
       )
     default:
-      return null
+      return (
+        <Form.Item
+          label={field.label}
+          name={field.name}
+          rules={field.rules}
+          {...field.formItemProps}>
+          <Input
+            disabled={field.disabled}
+            style={{ width: "100%" }}
+            placeholder={field.placeholder}
+            {...inputProps}
+          />
+        </Form.Item>
+      )
   }
 }
