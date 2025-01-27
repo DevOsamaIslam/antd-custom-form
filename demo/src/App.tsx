@@ -1,4 +1,4 @@
-import { Typography } from "antd"
+import { Divider, Typography } from "antd"
 import "antd/dist/antd.css"
 import moment, { Moment } from "moment"
 import { CustomForm, IFieldGroup } from "../../src"
@@ -34,6 +34,12 @@ function App() {
         label: "Age",
         name: "age",
         type: "number",
+      },
+    ],
+    [
+      {
+        type: "custom",
+        label: <Divider />,
       },
     ],
     [
