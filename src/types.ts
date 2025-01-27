@@ -7,8 +7,8 @@ type FieldTypes = "text" | "password" | "number" | "date" | "file" | "textarea"
 
 type SelectTypes = "single-select" | "multi-select" | "checkbox" | "radio"
 
-export interface ICustomFieldBase<T = string> {
-  label?: string
+interface ICustomFieldBase<T = string> {
+  label?: ReactNode
   name: name<T> | string[]
   placeholder?: string
   rules?: Rule[]
@@ -17,6 +17,13 @@ export interface ICustomFieldBase<T = string> {
   hide?: boolean
   inputProps?: any
   formItemProps?: FormItemProps
+}
+
+interface IComponentField<T = string>
+  extends Omit<ICustomFieldBase<T>, "name" | "label"> {
+  type: "custom"
+  label: ReactNode
+  name?: name<T> | string[]
 }
 
 interface ISelectField<T = string> extends ICustomFieldBase<T> {
@@ -37,6 +44,7 @@ export type ICustomField<T = string> =
   | ISelectField<T>
   | IOtherField<T>
   | IToggleFieldType<T>
+  | IComponentField<T>
 
 export type TOption<T = any> = {
   icon?: React.ReactNode

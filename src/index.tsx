@@ -234,6 +234,8 @@ const renderField = (field: ICustomField<string>) => {
           />
         </Form.Item>
       )
+    case "custom":
+      return field.label
     default:
       return (
         <Form.Item
