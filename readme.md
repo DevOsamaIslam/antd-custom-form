@@ -61,7 +61,7 @@ Ready to create your first masterpiece? Here's a quick example to get you starte
 ```ts
 import React from "react"
 import { CustomForm, IFieldGroup } from "antd-custom-form"
-import { Typography } from "antd"
+import { Typography, Divider } from "antd"
 
 interface Fields {
   firstName: string
@@ -94,6 +94,10 @@ function App() {
         type: "number",
       },
     ],
+    [{
+      type: 'custom',
+      label <Divider />
+    }],
     [
       {
         label: "Favorite Color",
