@@ -10,7 +10,7 @@ interface Fields {
   dob: Moment
   hobbies: string[]
   gender?: "male" | "female"
-  isEnabled?: boolean
+  isEnabled?: string
   bio: string
 }
 
@@ -88,10 +88,10 @@ function App() {
       {
         label: "Is Active?",
         name: "isEnabled",
-        type: "toggle",
+        type: "checkbox",
         list: [
-          { label: "Yes", value: true },
-          { label: "No", value: false },
+          { label: "Yes", value: "true" },
+          // { label: "No", value: false },
         ],
       },
     ],
@@ -116,6 +116,7 @@ function App() {
           dob: moment(),
           hobbies: [],
           bio: "",
+          isEnabled: "true",
         }}
       />
     </div>

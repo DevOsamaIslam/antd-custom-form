@@ -151,6 +151,8 @@ const renderField = (field: ICustomField<string>) => {
             mode={field.type === "multi-select" ? "multiple" : undefined}
             showSearch={(field.list?.length || 0) > 10}
             allowClear
+            optionFilterProp="children"
+            optionLabelProp="children"
             {...inputProps}>
             {field.list?.map((item) => (
               <Select.Option key={item.value} value={item.value}>
