@@ -12,6 +12,7 @@ interface Fields {
   gender?: "male" | "female"
   isEnabled?: string
   bio: string
+  customInput?: string
 }
 
 function App() {
@@ -38,8 +39,19 @@ function App() {
     ],
     [
       {
-        type: "custom",
+        type: "custom" as const,
         label: <Divider />,
+      },
+    ],
+    [
+      {
+        label: "Custom Input",
+        name: "customInput",
+        type: "custom-input",
+        component: (value, onChange) => (
+          <input value={value} onChange={(e) => onChange(e.target.value)} />
+        ),
+        rules: [{ required: true, message: "Please enter custom input" }],
       },
     ],
     [
@@ -117,6 +129,7 @@ function App() {
           hobbies: [],
           bio: "",
           isEnabled: "true",
+          customInput: "Custom value",
         }}
       />
     </div>

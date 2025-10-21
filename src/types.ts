@@ -5,7 +5,12 @@ import { ReactNode } from "react"
 
 type FieldTypes = "text" | "password" | "number" | "date" | "file" | "textarea"
 
-type SelectTypes = "single-select" | "multi-select" | "checkbox" | "radio"
+type SelectTypes =
+  | "single-select"
+  | "multi-select"
+  | "checkbox"
+  | "radio"
+  | "custom-input"
 
 interface ICustomFieldBase<T = string> {
   label?: ReactNode
@@ -17,10 +22,11 @@ interface ICustomFieldBase<T = string> {
   hide?: boolean
   inputProps?: any
   formItemProps?: FormItemProps
+  component?: (value: any, onChange: (value: any) => void) => React.ReactNode
 }
 
 interface IComponentField<T = string>
-  extends Omit<ICustomFieldBase<T>, "name" | "label"> {
+  extends Omit<ICustomFieldBase<T>, "name" | "label" | "component"> {
   type: "custom"
   label: ReactNode
   name?: name<T> | string[]
@@ -40,11 +46,17 @@ interface IToggleFieldType<T = string> extends ICustomFieldBase<T> {
   list: [TOption, TOption]
 }
 
+interface ICustomInputFieldType<T = string> extends ICustomFieldBase<T> {
+  type: "custom-input"
+  component: (value: any, onChange: (value: any) => void) => React.ReactNode
+}
+
 export type ICustomField<T = string> =
   | ISelectField<T>
   | IOtherField<T>
   | IToggleFieldType<T>
   | IComponentField<T>
+  | ICustomInputFieldType<T>
 
 export type TOption<T = any> = {
   icon?: React.ReactNode

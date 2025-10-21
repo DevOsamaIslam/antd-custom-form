@@ -24,35 +24,47 @@ yarn add antd-custom-form
 
 ### For the Form 📋
 
-| Prop                     | Required? | Default      | Description                                                      |
-| ------------------------ | --------- | ------------ | ---------------------------------------------------------------- |
-| `fieldGroups`           | Yes 🚨    | -            | An array of field groups. It's like Inception but for forms.     |
-| `onSubmit`               | Yes 🚨    | -            | What happens in the form, stays in the form—until you submit it. |
-| `formControl`            | No 🤷     | -            | Your very own Ant Design form instance.                          |
-| `initialValue`           | No 🤷     | -            | Pre-fill like a pro.                                             |
-| `layout`                 | No 🤷     | "horizontal" | How do you like your forms? Stacked or side-by-side?             |
-| `actionButtonsPlacement` | No 🤷     | "end"        | Where the action happens.                                        |
-| `submitButton`           | No 🤷     | `true`       | The button that seals the deal.                                  |
-| `resetButton`            | No 🤷     | `true`       | The button that says, "Let's start over, shall we?"              |
-| `formProps`              | No 🤷     | -            | Extra props? Yes, please!                                        |
+- `fieldGroups` - Required. An array of field groups. It's like Inception but for forms.
+- `onSubmit` - Required. What happens in the form, stays in the form—until you submit it.
+- `formControl` - Optional. Your very own Ant Design form instance.
+- `initialValue` - Optional. Pre-fill like a pro.
+- `layout` - Optional. "horizontal" by default. How do you like your forms? Stacked or side-by-side?
+- `actionButtonsPlacement` - Optional. "end" by default. Where the action happens.
+- `submitButton` - Optional. `true` by default. The button that seals the deal.
+- `resetButton` - Optional. `true` by default. The button that says, "Let's start over, shall we?"
+- `formProps` - Optional. Extra props? Yes, please!
 
 ### For the Fields 🌱
 
-| Prop            | Required?      | Default | Description                                      |
-| ------------    | -------------- | ------- | ------------------------------------------------ |
-| `label`         | Yes 🚨         | -       | What's in a name? Well, a lot actually.          |
-| `name`          | Yes 🚨         | -       | The key to your field's heart.                   |
-| `type`          | Yes 🚨         | -       | The personality of your field.                   |
-| `list`          | Conditional 🤔 | -       | The options that make your select fields happy.  |
-| `rules`         | No 🤷          | -       | Keep your fields in check.                       |
-| `hide`          | No 🤷          | false   | Whether to render.                               |
-| `formItemProps` | No 🤷          | -       | The props for each form item.                    |
-| `inputProps`    | No 🤷          | -       | The custom spices for each input.                |
-| `span`          | No 🤷          | `24`    | How much personal space to give your field?      |
+- `label` - Required. What's in a name? Well, a lot actually.
+- `name` - Required. The key to your field's heart.
+- `type` - Required. The personality of your field.
+- `list` - Conditional. The options that make your select fields happy.
+- `rules` - Optional. Keep your fields in check.
+- `hide` - Optional. `false` by default. Whether to render.
+- `formItemProps` - Optional. The props for each form item.
+- `inputProps` - Optional. The custom spices for each input.
+- `span` - Optional. `24` by default. How much personal space to give your field?
 
 > 🤔 The `list` prop is only required for `single-select`, `multi-select` and `toggle`. For other field types, it's a "thanks, but no thanks" situation.
 
----
+### Custom Field Types 🧩
+
+#### Custom Node (`type: 'custom'`)
+Custom nodes allow you to add any React component as a standalone element in your form layout. This is perfect for adding dividers, custom HTML elements, or any other React component that doesn't need to be part of the form data flow.
+
+- `type` must be set to `'custom'`
+- `label` - The React component to render
+
+#### Custom Input (`type: 'custom-input'`)
+Custom inputs allow you to create completely custom form fields that integrate with the form's data flow. These fields will be wrapped in a Form.Item and participate in form validation and submission.
+
+- `type` - Must be set to `'custom-input'`
+- `component` - Function that returns your custom component
+
+The `component` function receives two parameters:
+- `value`: The current value of the field
+- `onChange`: A function to update the field's value
 
 ## Usage 🎨
 
@@ -61,7 +73,7 @@ Ready to create your first masterpiece? Here's a quick example to get you starte
 ```ts
 import React from "react"
 import { CustomForm, IFieldGroup } from "antd-custom-form"
-import { Typography, Divider } from "antd"
+import { Typography, Divider, Input } from "antd"
 
 interface Fields {
   firstName: string
@@ -72,6 +84,7 @@ interface Fields {
   gender?: "male" | "female"
   isEnabled?: boolean
   bio: string
+  customValue: string
 }
 
 function App() {
@@ -94,10 +107,12 @@ function App() {
         type: "number",
       },
     ],
-    [{
-      type: 'custom',
-      label <Divider />
-    }],
+    [
+      {
+        type: 'custom',
+        label: <Divider />,
+      },
+    ],
     [
       {
         label: "Favorite Color",
@@ -149,6 +164,20 @@ function App() {
           { label: "Yes", value: true },
           { label: "No", value: false },
         ],
+      },
+    ],
+    [
+      {
+        label: "Custom Input",
+        name: "customValue",
+        type: "custom-input",
+        component: (value, onChange) => (
+          <YourCustomInput
+            value={value}
+            onChange={onChange}
+          />
+        ),
+        rules: [{ required: true, message: "Please enter a custom value" }],
       },
     ],
   ]

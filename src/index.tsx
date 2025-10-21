@@ -57,7 +57,7 @@ export const CustomForm = <T,>({
             (field, fieldIndex) =>
               !field.hide && (
                 <Col key={fieldIndex} span={field.span || 24 / fields.length}>
-                  {renderField(field as ICustomField<string>)}
+                  {renderField(field as ICustomField<string>, form)}
                 </Col>
               )
           )}
@@ -82,7 +82,7 @@ export const CustomForm = <T,>({
   )
 }
 
-const renderField = (field: ICustomField<string>) => {
+const renderField = (field: ICustomField<string>, form: any) => {
   const inputProps = {
     "data-testid": Array.isArray(field.name)
       ? field.name.join("-")
@@ -238,6 +238,19 @@ const renderField = (field: ICustomField<string>) => {
       )
     case "custom":
       return field.label
+    case "custom-input":
+      return (
+        <Form.Item
+          label={field.label}
+          name={field.name}
+          rules={field.rules}
+          {...field.formItemProps}>
+          {(field as any).component(
+            form.getFieldValue(field.name),
+            (value: any) => form.setFieldsValue({ [String(field.name)]: value })
+          )}
+        </Form.Item>
+      )
     default:
       return (
         <Form.Item
